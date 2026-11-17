@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # Load and preprocess your dataset
 train_datagen = ImageDataGenerator(rescale=1./255)
 train_generator = train_datagen.flow_from_directory(
-    r'"C:\Users\doron\Documents\Documents\collage\2nd YEAR\SEM 3\DP-1\Criminal-Face-Identification-System-Source\Criminal-Face-Identification-System-Source\img"',  # Directory with training images
+    'data/train',  # one sub-folder per class, e.g. data/train/target and data/train/other
     target_size=(64, 64),
     batch_size=32,
     class_mode='binary'
@@ -14,7 +14,7 @@ train_generator = train_datagen.flow_from_directory(
 
 validation_datagen = ImageDataGenerator(rescale=1./255)
 validation_generator = validation_datagen.flow_from_directory(
-    r'"C:\Users\doron\Documents\Documents\collage\2nd YEAR\SEM 3\DP-1\Criminal-Face-Identification-System-Source\Criminal-Face-Identification-System-Source\img"',  # Directory with validation images
+    'data/validation',  # held-out images, same sub-folders as data/train
     target_size=(64, 64),
     batch_size=32,
     class_mode='binary'

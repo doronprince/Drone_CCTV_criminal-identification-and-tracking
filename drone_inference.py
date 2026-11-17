@@ -2,7 +2,7 @@ from djitellopy import Tello
 import cv2
 import tensorflow as tf
 import numpy as np
-import face_recognition_models
+import face_recognition  # pip install face_recognition (uses dlib)
 
 # Load the trained model
 model = tf.keras.models.load_model('target_model.h5')
@@ -18,8 +18,8 @@ tello.connect()
 tello.streamon()
 
 # Load a sample picture and learn how to recognize it
-known_image = face_recognition_models.load_image_file("known_face.jpg")
-known_face_encoding = face_recognition_models.face_encodings(known_image)[0]
+known_image = face_recognition.load_image_file("known_face.jpg")
+known_face_encoding = face_recognition.face_encodings(known_image)[0]
 
 known_face_encodings = [known_face_encoding]
 known_face_names = ["Target"]
@@ -39,11 +39,11 @@ while True:
     prediction = model.predict(preprocessed_frame)
 
     # Face recognition process
-    face_locations = face_recognition_models.face_locations(rgb_frame)
-    face_encodings = face_recognition_models.face_encodings(rgb_frame, face_locations)
+    face_locations = face_recognition.face_locations(rgb_frame)
+    face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
 
     for face_encoding, face_location in zip(face_encodings, face_locations):
-        matches = face_recognition_models.compare_faces(known_face_encodings, face_encoding)
+        matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
 
         name = "Unknown"
         if True in matches:
